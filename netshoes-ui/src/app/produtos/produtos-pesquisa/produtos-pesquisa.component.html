@@ -1,0 +1,50 @@
+<div class="container">
+    <h2>Lista de Produtos</h2>
+    <div class="ui-g">
+        <div class="ui-g-12">
+                <button pButton routerLink="/cadastrar" label="Novo Produto"></button>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-12" *ngIf="produtos$ | async as produtos; else loadingError">
+            <!-- [responsive]="true" -->
+            <p-table #table [columns]="cols" [value]="produtos" [paginator]="true" [rows]="10">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th class="col-btn">Ações</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-produto>
+                    <tr>
+                        <td>{{produto.id}}</td>
+                        <td>{{produto.nome}}</td>
+                        <td style="text-align: right;">
+                            <span [ngStyle]="{ color : produto.preco < 200 ? 'blue' : 'red'}">
+                                {{produto.preco}}
+                            </span>
+                        </td>
+                        <td>
+                            <a pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top" (click)="atualizar()"></a>
+                            <button style="margin-left: 20px;" pButton icon="fa fa-trash-o" pTooltip="Excluir"
+                                tooltipPosition="top" (click)="excluir(produto)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <ng-template #loadingError>
+            <div *ngIf="error$ | async; else loading">
+                <label>Erro ao carregar produtos. Tente novamente mais tarde.</label>
+                <div class="form-group ui-g-12">
+                    <button pButton type="submit" label="Atualizar" (click)="onRefresh()"></button>
+                </div>
+            </div>
+            <ng-template #loading>
+                <span>Carregando produtos...</span>
+            </ng-template>
+        </ng-template>
+    </div>
+</div>

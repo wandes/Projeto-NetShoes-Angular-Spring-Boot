@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "api-netshoes.jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'api-netshoes.jwt.expiration'"
+  },
+  {
+    "name": "api-netshoes.jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api-netshoes.jwt.secret'"
+  }
+]}

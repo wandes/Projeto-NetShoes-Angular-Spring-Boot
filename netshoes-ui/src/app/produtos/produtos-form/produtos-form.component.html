@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Cadastrar Produto</h2>
+    <div class="ui-g">
+        <form autocomplete="off" #usuarioForm="ngForm" (ngSubmit)="adicionar(usuarioForm)">
+            <div class="ui-g">
+
+                <div class="ui-g-12">
+                    <h2>Produtos</h2>
+                </div>
+
+                <div class="ui-g-12">
+                    <span class="ui-float-label">
+                        <input id="float-input" name="nome" type="text" size="30" pInputText [(ngModel)]="produto.nome"
+                            required minlength="10" #nome="ngModel">
+                        <label for="float-input">Nome</label>
+                    </span>
+                    <!-- *ngIf="nome.invalid"  -->
+                    <p-message *ngIf="nome.hasError('required') && nome.dirty" severity="error" text="Informe um nome">
+                    </p-message>
+                    <p-message *ngIf="nome.hasError('minlength') && nome.dirty" severity="error"
+                        text="O nome deve ser completo"></p-message>
+                </div>
+
+                <div class="ui-g-12">
+                    <span class="ui-float-label">
+                        <input id="float-input" name="preco" type="text" size="30" pInputText
+                            [(ngModel)]="produto.preco" required #preco="ngModel" currencyMask
+                            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
+                        <label for="float-input">Preço</label>
+                    </span>
+
+                    <p-message *ngIf="preco.hasError('required') && preco.dirty" severity="error"
+                        text="O valor deve ser informado"></p-message>
+
+                </div>
+                <div class="ui-g-12">
+                    <div class="form-group ui-g-12">
+                        <button pButton type="submit" label="Cadastrar" [disabled]="!usuarioForm.valid"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
